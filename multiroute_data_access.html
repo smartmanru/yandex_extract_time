@@ -36,47 +36,38 @@
 <button type=button id="send_m"  onclick="dlina()" value="Click me"  >Send</button>
 <script>
 function sestr(){
-    var str = document.getElementById("viewContainer").innerText;
-   var  extkm = str.match(/(\d+)..,/g);
-//     if (extkm == null)
-//     {
-//         console.log("no routes")
-//     }
-//     else
-//     {
-  var  digit = extkm.join();
-      console.log(digit);
-
-  var   extdigit = digit.match(/(\d+)/g);
-    var sum=0;
-for(var i=0;i<extdigit.length;i++){
-    sum = sum + parseInt(extdigit[i]);
-    // document.getElementByClass("ymaps-2-1-73-listbox__list-item-text").click
-    document.getElementById("peshkov").value = sum;
-    document.getElementById('send').click()
-
-
+	var str = document.getElementById("viewContainer").innerText;
+	var  extkm = str.match(/(\d+)..,/g);
+	if (extkm == null)
+	{
+		console.log("no routes")
+	}	
+	else
+		{
+		var  digit = extkm.join();
+		console.log(digit);
+		var   extdigit = digit.match(/(\d+)/g);
+		var sum=0;	
+		for(var i=0;i<extdigit.length;i++)
+			{
+			sum = sum + parseInt(extdigit[i]);
+			document.getElementById("peshkov").value = sum;
+			document.getElementById('send').click()
+			}
+		}
 }
-//     var n = str.search("м,");
-//     var sbs = str.substring(n,);
-//     var endstr = 
-  //  document.getElementById("viewContainer").innerText = ;
-// ;
-// }
+function dlina()
+	{
+	var str = document.getElementById("viewContainer").innerText;
+	var extkm = str.match(/Время в пути:.+/g);
+	var digit = extkm.toString();
+	var extdigit = digit.match(/(\d+)/g);
+	var extdigit = extdigit.toString();
+	console.log(extdigit);
+	document.getElementById("m_all").value = extdigit;
+	document.getElementById('send_m').click()
 }
-function dlina(){
-      var str = document.getElementById("viewContainer").innerText;
-   var  extkm = str.match(/Время в пути:.+/g);
-   var digit = extkm.toString();
-    var   extdigit = digit.match(/(\d+)/g);
-    var extdigit = extdigit.toString();
-console.log(extdigit);
- document.getElementById("m_all").value = extdigit;
-    document.getElementById('send_m').click()
-}
-
 </script>
 </body>
-
 </html>
 

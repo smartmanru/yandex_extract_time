@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Работа с данными и событиями модели мультимаршрута</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="https://yandex.st/jquery/2.2.3/jquery.min.js" type="text/javascript"></script>
+    <!--
+        Укажите свой API-ключ. Тестовый ключ НЕ БУДЕТ работать на других сайтах.
+        Получить ключ можно в Кабинете разработчика: https://developer.tech.yandex.ru/keys/
+    -->
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=f28faff9-aedc-4a57-b89e-238cc0862a5c" type="text/javascript"></script>
+    <script src="custom_view.js" type="text/javascript"></script>
+    <script src="multiroute_data_access.js" type="text/javascript"></script>
+    <style>
+        html, body {
+            width: 100%; height: 100%; padding: 0; margin: 0;
+        }
+
+        #map {
+            width: 95%; height: 50%;
+        }
+        #viewContainer {
+            margin: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <div id="viewContainer"></div>
+
+        <input type="text" size="40" id="peshkov" value= > 
+<button type=button id="send"  onclick="sestr()" value="Click me"  >Send</button>
+<script>
+function sestr(){
+    var str = document.getElementById("viewContainer").innerText;
+   var  extkm = str.match(/м, [а-я]+ (\d+)/g);
+    if (extkm == null)
+    {
+        console.log("no routes")
+    }
+    else
+    {
+  var  digit = extkm.join();
+  var   extdigit = digit.match(/ (\d+)/g);
+    var sum=0;
+for(var i=0;i<extdigit.length;i++){
+    sum = sum + parseInt(extdigit[i]);
+    // document.getElementByClass("ymaps-2-1-73-listbox__list-item-text").click
+    document.getElementById("peshkov").value = sum;
+    document.getElementById('send').click()
+
+
+}
+//     var n = str.search("м,");
+//     var sbs = str.substring(n,);
+//     var endstr = 
+  //  document.getElementById("viewContainer").innerText = ;
+;
+}
+}
+sestr();
+</script>
+</body>
+
+</html>
+

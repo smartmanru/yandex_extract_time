@@ -31,18 +31,23 @@
 
         <input type="text" size="40" id="peshkov" value= > 
 <button type=button id="send"  onclick="sestr()" value="Click me"  >Send</button>
+
+     <input type="text" size="40" id="m_all" value= > 
+<button type=button id="send_m"  onclick="dlina()" value="Click me"  >Send</button>
 <script>
 function sestr(){
     var str = document.getElementById("viewContainer").innerText;
-   var  extkm = str.match(/м, [а-я]+ (\d+)/g);
-    if (extkm == null)
-    {
-        console.log("no routes")
-    }
-    else
-    {
+   var  extkm = str.match(/(\d+)..,/g);
+//     if (extkm == null)
+//     {
+//         console.log("no routes")
+//     }
+//     else
+//     {
   var  digit = extkm.join();
-  var   extdigit = digit.match(/ (\d+)/g);
+      console.log(digit);
+
+  var   extdigit = digit.match(/(\d+)/g);
     var sum=0;
 for(var i=0;i<extdigit.length;i++){
     sum = sum + parseInt(extdigit[i]);
@@ -56,10 +61,20 @@ for(var i=0;i<extdigit.length;i++){
 //     var sbs = str.substring(n,);
 //     var endstr = 
   //  document.getElementById("viewContainer").innerText = ;
-;
+// ;
+// }
 }
+function dlina(){
+      var str = document.getElementById("viewContainer").innerText;
+   var  extkm = str.match(/Время в пути:.+/g);
+   var digit = extkm.toString();
+    var   extdigit = digit.match(/(\d+)/g);
+    var extdigit = extdigit.toString();
+console.log(extdigit);
+ document.getElementById("m_all").value = extdigit;
+    document.getElementById('send_m').click()
 }
-sestr();
+
 </script>
 </body>
 

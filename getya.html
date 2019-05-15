@@ -25,13 +25,10 @@
 </head>
 
 <body>
-    <!--  <div id="map"></div>   -->
       
     <div id="map"></div>     
     <div id="viewContainer"></div>
 
-        <input type="text" size="40" class="walk" id="walk"> 
-<button type=button id="send" onclick="walkdist()" value="Click me"  >Send</button>
     <input type="text" size="40" class="walk" id="walk"> 
     <button type=button id="send" onclick="walkdist()" value="Click me"  >Send</button>
 
@@ -41,8 +38,6 @@
     <input type="text" size="40" class="time" id="coord"> 
     <button type=button id="send_c"  onclick="totaltime()" value="Click me"  >Send</button>
 
-     <input type="text" size="40" class="time" id="m_all"> 
-<button type=button id="send_m"  onclick="totaltime()" value="Click me"  >Send</button>
 <script>
 
 function walkdist(){
@@ -99,13 +94,11 @@ parser.href = document.location.href;
 
 var str = parser.pathname.substring(6);
 str = JSON.parse(str);
-
 console.log(str);
 
 function init () {
     // Создаем модель мультимаршрута.
     var multiRouteModel = new ymaps.multiRouter.MultiRouteModel(
-            str
         str
         , {
             // Путевые точки можно перетаскивать.
@@ -205,16 +198,12 @@ ymaps.modules.define('MultiRouteCustomView', ['util.defineClass'], function(prov
             var routes = multiRouteModel.getRoutes()
               , result = ["Данные успешно получены."];
             if (routes.length) {
-                result.push("Всего маршрутов: " + routes.length + ".");
-                for (var i = 0, l = routes.length; i < l; i++) {
-                    result.push(this.processRoute(i, routes[i]));
 //                result.push("Всего маршрутов: " + routes.length + ".");
 
 //                for (var i = 0, l = routes.length; i < l; i++) {
 
                   result.push(this.processRoute(0, routes[0]));
                 
-                }
 //                  result.push(multiRouteModel.getAllPoints().getReferencePoint());
 //                  result.push(routes.getAllPoints().getReferencePoint());
 
@@ -237,7 +226,6 @@ ymaps.modules.define('MultiRouteCustomView', ['util.defineClass'], function(prov
         },
 
         processDrivingRoute: function(route) {
-  var result = ["Маршрут на общественном транспорте."];
             var result = ["Маршрут на общественном транспорте."];
             result.push(this.createCommonRouteOutput(route));
             result.push("Описание маршута: <ul>" + this.createMasstransitRouteOutput(route) + "</ul>");
@@ -272,7 +260,6 @@ ymaps.modules.define('MultiRouteCustomView', ['util.defineClass'], function(prov
             for (var i = 0, l = route.getPaths().length; i < 1; i++) {  // i < l
                 var path = route.getPaths()[i];
                 for (var j = 0, k = path.getSegments().length; j < k; j++) {
-                    result.push("<li>" + path.getSegments()[j].properties.get("text") + "</li>");
 
                     time += path.getSegments()[j].properties.get("duration").value 
 

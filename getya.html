@@ -26,10 +26,20 @@
 
 <body>
     <!--  <div id="map"></div>   -->
+      
+    <div id="map"></div>     
     <div id="viewContainer"></div>
 
         <input type="text" size="40" class="walk" id="walk"> 
 <button type=button id="send" onclick="walkdist()" value="Click me"  >Send</button>
+    <input type="text" size="40" class="walk" id="walk"> 
+    <button type=button id="send" onclick="walkdist()" value="Click me"  >Send</button>
+
+    <input type="text" size="40" class="time" id="m_all"> 
+    <button type=button id="send_m"  onclick="totaltime()" value="Click me"  >Send</button>
+
+    <input type="text" size="40" class="time" id="coord"> 
+    <button type=button id="send_c"  onclick="totaltime()" value="Click me"  >Send</button>
 
      <input type="text" size="40" class="time" id="m_all"> 
 <button type=button id="send_m"  onclick="totaltime()" value="Click me"  >Send</button>
@@ -96,6 +106,7 @@ function init () {
     // Создаем модель мультимаршрута.
     var multiRouteModel = new ymaps.multiRouter.MultiRouteModel(
             str
+        str
         , {
             // Путевые точки можно перетаскивать.
             // Маршрут при этом будет перестраиваться.
@@ -197,8 +208,18 @@ ymaps.modules.define('MultiRouteCustomView', ['util.defineClass'], function(prov
                 result.push("Всего маршрутов: " + routes.length + ".");
                 for (var i = 0, l = routes.length; i < l; i++) {
                     result.push(this.processRoute(i, routes[i]));
+//                result.push("Всего маршрутов: " + routes.length + ".");
+
+//                for (var i = 0, l = routes.length; i < l; i++) {
+
+                  result.push(this.processRoute(0, routes[0]));
                 
                 }
+//                  result.push(multiRouteModel.getAllPoints().getReferencePoint());
+//                  result.push(routes.getAllPoints().getReferencePoint());
+
+
+//                }
             } else {
                 result.push("Нет маршрутов.");
             }
@@ -217,6 +238,7 @@ ymaps.modules.define('MultiRouteCustomView', ['util.defineClass'], function(prov
 
         processDrivingRoute: function(route) {
   var result = ["Маршрут на общественном транспорте."];
+            var result = ["Маршрут на общественном транспорте."];
             result.push(this.createCommonRouteOutput(route));
             result.push("Описание маршута: <ul>" + this.createMasstransitRouteOutput(route) + "</ul>");
             return result.join("<br/>");
@@ -244,10 +266,27 @@ ymaps.modules.define('MultiRouteCustomView', ['util.defineClass'], function(prov
         // всех сегментов маршрута на общественном транспорте.
         createMasstransitRouteOutput: function(route) {
             var result = [];
-            for (var i = 0, l = route.getPaths().length; i < l; i++) {
+            var summ = 0;
+            var time = 0;
+
+            for (var i = 0, l = route.getPaths().length; i < 1; i++) {  // i < l
                 var path = route.getPaths()[i];
                 for (var j = 0, k = path.getSegments().length; j < k; j++) {
                     result.push("<li>" + path.getSegments()[j].properties.get("text") + "</li>");
+
+                    time += path.getSegments()[j].properties.get("duration").value 
+
+                    if( path.getSegments()[j].properties.get("type") != "transport" ) {
+//                        result.push("<li>" + path.getSegments()[j].properties.get("type") + " " + path.getSegments()[j].properties.get("distance").value);
+                        summ += path.getSegments()[j].properties.get("distance").value   
+
+                    }
+
+                    if( j == k - 1) {                        
+                        result.push("walk=" + summ + "; alltime=" + time + ";  coordinates=" + path.getSegments()[j].geometry.getCoordinates()[0][0] + "," + path.getSegments()[j].geometry.getCoordinates()[0][1] + ";");
+                    }
+        
+                    result.push("</li>");
                 }
             }
 
@@ -261,13 +300,7 @@ ymaps.modules.define('MultiRouteCustomView', ['util.defineClass'], function(prov
     });
 
     provide(CustomView); 
-    
 });
-
-
-
-
-
 
 </script>
 </body>

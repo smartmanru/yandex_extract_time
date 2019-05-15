@@ -16,7 +16,7 @@ const router = app => {
         const puppeteer = require('puppeteer');   
         (async() => {
                 const browser = await puppeteer.launch({
-                //    headless: false
+                    headless: false   // --- убрать потом
                    }) ; 
              
                 const page = await browser.newPage();
@@ -32,7 +32,7 @@ const router = app => {
 //                console.log(walk);
 //                console.log(time);
 
-                await browser.close();
+ //               await browser.close();
 
                 response.send({
                     time: time, 
